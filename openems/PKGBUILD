@@ -1,0 +1,55 @@
+# Maintainer: Matt Huszagh <huszaghmatt@gmail.com>
+pkgname=openEMS-Project
+pkgver=r116.78e7642
+pkgrel=1
+epoch=
+pkgdesc="Free and open electromagnetic field solver using the FDTD method."
+arch=('i686' 'x86_64')
+url="http://openems.de/"
+license=('GPL3')
+groups=()
+depends=('qt5-base' 'tinyxml' 'hdf5' 'boost' 'vtk' 'unixodbc' 'cgal' 'openmpi' 'proj'
+         'gdal' 'gengetopt' 'help2man' 'groff' 'bison' 'flex' 'libharu' 'libtool')
+makedepends=('cmake' 'git')
+checkdepends=()
+optdepends=()
+provides=('openems')
+conflicts=('openems')
+replaces=()
+backup=()
+options=()
+install=
+changelog=
+source=(git+https://github.com/thliebig/openEMS-Project
+        git+https://github.com/thliebig/AppCSXCAD
+        git+https://github.com/thliebig/CSXCAD
+        git+https://github.com/thliebig/CTB
+        git+https://github.com/thliebig/QCSXCAD
+        git+https://github.com/thliebig/fparser
+        git+https://github.com/thliebig/hyp2mat
+        git+https://github.com/thliebig/openEMS)
+md5sums=('SKIP'
+         'SKIP'
+         'SKIP'
+         'SKIP'
+         'SKIP'
+         'SKIP'
+         'SKIP'
+         'SKIP')
+noextract=()
+
+pkgver() {
+  cd "${srcdir}/${pkgname}"
+  printf "r%s.%s" "$(git rev-list HEAD --count --first-parent)" "$(git rev-parse --short HEAD)"
+}
+
+prepare() {
+  cd "${srcdir}/${pkgname}"
+  git submodule init
+  git submodule update
+}
+
+package() {
+  cd "${srcdir}/${pkgname}"
+  ./update_openEMS.sh ~/opt/openEMS --with-hyp2mat --with-CTB --with-MPI
+}
