@@ -1,0 +1,25 @@
+# Maintainer: Matt Huszagh <huszaghmatt@gmail.com>
+pkgname=custom-oryp4
+pkgver=0.1.0
+pkgrel=1
+pkgdesc="Packages for System 76 Oryx Pro 4."
+arch=('any')
+url=""
+license=('GPL')
+depends=(
+  ## inherits
+  'custom-base'
+  'custom-desktop'
+
+  ## custom
+  'nvidia'
+  'nvidia-settings'
+  'nvidia-utils'
+  'system76-dkms'
+  'system76-driver'
+  'system76-firmware-daemon'
+  'system76-power'
+
+  ## consider removing
+)
+# vim:set ts=2 sw=2 et:
